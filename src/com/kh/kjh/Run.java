@@ -11,47 +11,85 @@ public class Run {
 		NG = new FiveStoneFunction();
 		int count = 0;
 		int option = 0;
-		Scanner sc = new Scanner(System.in);
+		int option2 = 0;
+		boolean loof = true;
+		Scanner sc = new Scanner(System.in);			
 		Player[] player = new Player[2];
 		player[0] = new Player();
 		player[1] = new Player();
 		player[0].SetMal('o');
 		player[1].SetMal('x');
+		EXIT:
 		while(true) {
+			option2 = 0;
+			loof = true;
 			System.out.println("======= 메뉴 ======");
 			System.out.println("1. 말 설정");
 			System.out.println("2. 전적 출력");
 			System.out.println("3. 게임시작");
-			option = sc.nextInt();
+			System.out.println("4. 게임종료");
+			try {
+				option = sc.nextInt();
+			}
+			catch(java.util.InputMismatchException e) {
+				System.out.println("알맞은 숫자를 입력해주세요");
+				sc.next();
+			}
+			if(option < 1 || 4 < option) {
+				System.out.println("알맞은 숫자를 입력해주세요");
+			}
+			while(option2 < 1 || option2 > 2 )
 			switch(option) {
 			case 1 :
 				System.out.println("설정할 player 선택");
 				System.out.println("1. player1 말 설정");
 				System.out.println("2. plater2 말 설정");
-				option = sc.nextInt();
-				switch(option) {
+				try {
+					option2 = sc.nextInt();
+					if(option2 < 1 || option2 > 2) {
+						System.out.println("알맞은 숫자를 입력해주세요");
+					}
+				}
+				catch(java.util.InputMismatchException e) {
+					System.out.println("알맞은 숫자를 입력해주세요");
+					sc.next();
+					option = 1;
+				}
+				switch(option2) {
 				case 1 : 
-					while(true){
-						System.out.print("바꾸실 영어 알파벳을 입력해주세요 : ");
+					while(loof){
+						System.out.print("player1의 바꾸실 영어 알파벳을 입력해주세요 : ");
 						char a = sc.next().charAt(0);
-						if(a == player[1].GetMal()) {
-							System.out.println("player2의 말과 중복됩니다.");
-						}else {
-							player[0].SetMal(a);
-							break;
+						loof = !('a' <= a && a <= 'z') || ('A' <= a && a<= 'Z');
+						if(!loof) {
+							if(a == player[1].GetMal()) {
+								System.out.println("player2의 말과 중복됩니다.");
+							}else {
+								player[0].SetMal(a);
+								break;
+							}						
+						}
+						else {
+							System.out.println("영어 알파벳이 아닙니다.");
 						}
 					}
 			         break;
 				case 2 : 
-					while(true){
-						System.out.print("바꾸실 영어 알파벳을 입력해주세요 : ");
+					while(loof){
+						System.out.print("player2의 바꾸실 영어 알파벳을 입력해주세요 : ");
 						char a = sc.next().charAt(0);
-						if(player[0].GetMal() == a) {
-							System.out.println("player1의 말과 중복됩니다.");
-						}else {
-							player[1].SetMal(a);
-							break;
-						}						
+						loof = !('a' <= a && a <= 'z') || ('A' <= a && a<= 'Z');
+						if(!loof) {
+							if(player[0].GetMal() == a) {
+								System.out.println("player1의 말과 중복됩니다.");
+							}else {
+								player[1].SetMal(a);
+								break;
+							}													
+						}
+						else {
+							System.out.println("영어 알파벳이 아닙니다.");
+						}
 					}
 					break;
 				}
@@ -108,6 +146,7 @@ public class Run {
 						
 					}
 				break;
+			case 4 : break EXIT;
 			}
 		}
 			

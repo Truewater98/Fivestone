@@ -40,12 +40,35 @@ public class FiveStoneFunction {
 
 	boolean input(char player) {
 		Scanner sc = new Scanner(System.in);
+		// 11 1919
 		int numx = 0;
 		int numy = 0;
-		System.out.print("x좌표 입력 : ");
-		numx = sc.nextInt();
-		System.out.print("y좌표 입력 : ");
-		numy = sc.nextInt();
+		while(numx < 1 || numx > 19) {
+			try {
+				System.out.print("x좌표 입력 : ");
+				numx = sc.nextInt();
+				if(numx < 1 || numx > 19) {
+					System.out.println("1부터 19사이에 값을 입력해주세요.");
+				}
+			}
+			catch(java.util.InputMismatchException e) {
+				System.out.println("1부터 19사이에 값을 입력해주세요.");
+				sc.next();
+			}
+		}
+		while(numy < 1 || numy > 19) {
+			try {
+				System.out.print("y좌표 입력 : ");
+				numy = sc.nextInt();
+				if(numy < 1 || numy > 19) {
+					System.out.println("1부터 19사이에 값을 입력해주세요.");
+				}
+			}
+			catch(java.util.InputMismatchException e) {
+				System.out.println("1부터 19사이에 값을 입력해주세요.");
+				sc.next();
+			}
+		}
 		if(board[numy - 1][numx - 1] == '*') {
 		board[numy - 1][numx - 1] = player;
 		return true;
